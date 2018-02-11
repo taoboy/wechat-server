@@ -9,8 +9,8 @@ import { face as AipFaceClient } from 'baidu-aip-sdk'
 // const AipFaceClient = require("baidu-aip-sdk").face;
 
 // 设置 APPID/AK/SK
-const APP_ID = "10240556";
-const API_KEY = "DxN5cW1ZYbMizmFV0SEuQR2Z";
-const SECRET_KEY = "uhVfvNMqYPYuMclks7pMrmfM2DVD62Z3";
+const APP_ID = '10240556'
+const API_KEY = 'DxN5cW1ZYbMizmFV0SEuQR2Z'
+const SECRET_KEY = 'uhVfvNMqYPYuMclks7pMrmfM2DVD62Z3'
 
-export default new AipFaceClient(APP_ID, API_KEY, SECRET_KEY);
+export default new AipFaceClient(APP_ID, API_KEY, SECRET_KEY)

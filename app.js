@@ -11,7 +11,7 @@ import proxyMiddleware from 'http-proxy-middleware'
 import bodyParser from 'body-parser'
 
 // 数据库
-import db from './dbHandle';
+import db from './dbHandle'
 
 // 路由服务
 import router from './routes'
@@ -40,16 +40,16 @@ let app = express()   // Express服务
 
 // cors
 app.all('*', (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", req.headers.origin || '*');
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
-  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,PATCH,OPTIONS");
-  res.header("Access-Control-Allow-Credentials", true); //可以带cookies
-  if (req.method == 'OPTIONS') {
-    res.send(200);
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*')
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
+  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,PATCH,OPTIONS')
+  res.header('Access-Control-Allow-Credentials', true) // 可以带cookies
+  if (req.method === 'OPTIONS') {
+    res.send(200)
   } else {
-    next();
+    next()
   }
-});
+})
 
 // 需要使用body-parser模块,要不然post方法获取不到传递的参数
 // 设置接收参数的大小,主要针对于base64的图片
@@ -65,7 +65,7 @@ app.use(session({
     httpOnly: true,
     maxAge: 1000 * 60 * 30
   }
-}));
+}))
 
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {
@@ -79,7 +79,7 @@ Object.keys(proxyTable).forEach(function (context) {
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
 
-app.use(logger('dev'));
+app.use(logger('dev'))
 
 // serve pure static assets
 let staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
@@ -100,15 +100,13 @@ io.on('connection', (socket) => {
   socketCtx.initSocket(socket)
 })
 
-let _resolve
 let readyPromise = new Promise(resolve => {
-  _resolve = resolve
 })
 
 console.log('> Starting dev server...')
 
 server.listen(port, () => {
-  console.log("Express server listening on port " + port);
+  console.log('Express server listening on port ' + port)
 })
 
 export default {

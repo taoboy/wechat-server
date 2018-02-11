@@ -8,13 +8,13 @@ import log4js from 'log4js'
 import path from 'path'
 
 log4js.configure({
-    appenders: [{
-        type: 'console',
-        category: 'dev'
-    }, {
-        type: 'file',
-        filename: path.join()
-    }]
+  appenders: [{
+    type: 'console',
+    category: 'dev'
+  }, {
+    type: 'file',
+    filename: path.join()
+  }]
 })
 
 log4js.getLogger('dev')

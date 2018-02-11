@@ -9,15 +9,15 @@ const schema = mongoose.Schema
 
 const MOMENT_SCHEMA = {
     // 唯一id
-    uid: {
-        type: schema.Types.ObjectId,
-        ref: 'User'
-    },
-    content: String,    // 文字信息
-    photos: Array,      // 图片，最多九张
-    video: String,      // 视频地址
-    createtime: Date,
-    upvote: Array       // 点赞用户
+  uid: {
+    type: schema.Types.ObjectId,
+    ref: 'User'
+  },
+  content: String,    // 文字信息
+  photos: Array,      // 图片，最多九张
+  video: String,      // 视频地址
+  createtime: Date,
+  upvote: Array       // 点赞用户
 }
 
 const MomentSchema = schema(MOMENT_SCHEMA)

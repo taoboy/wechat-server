@@ -21,14 +21,12 @@ let appResponse = (response, resultObj) => {
   response.end(resultObj)
 }
 
-
 /**
  * 检查手机号是否合格
  * ---------------------------------------------
  * @param mobile
  */
 let mobileValidate = (mobile) => mobile.test(/^\d{11}$/)
-
 
 /**
  * 获取随机长度的字符串
@@ -37,15 +35,14 @@ let mobileValidate = (mobile) => mobile.test(/^\d{11}$/)
  * @returns {string}
  */
 let getRandomStr = (length = 4) => {
-
-  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-  let res = '';
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
+  let res = ''
 
   for (let i = 0; i < length; i++) {
     res += chars.substr(Math.random() * (chars.length - 1), 1)
   }
 
-  return res;
+  return res
 }
 
 /**
@@ -55,9 +52,9 @@ let getRandomStr = (length = 4) => {
  * @returns {string}
  */
 let createMd5 = (str) => {
-  const hash = crypto.createHash('md5');
+  const hash = crypto.createHash('md5')
   hash.update(str)
-  return hash.digest('hex');
+  return hash.digest('hex')
 }
 
 export default {

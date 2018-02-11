@@ -4,30 +4,28 @@
 'use strict'
 
 import mongoose from 'mongoose'
-mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise
 
 const DB_URL = 'mongodb://localhost/wxtest'
 
 // 简介数据库
 mongoose.connect(DB_URL, {
-    useMongoClient: true,
-});
+  useMongoClient: true
+})
 
 // 数据库连接等
-const db = mongoose.connection;
+const db = mongoose.connection
 
-db.once('open' ,() => {
-    console.log('连接数据成功')
-
-}).on('error', function(error) {
-    console.error('连接数据库错误: ' + error);
-    mongoose.disconnect();
-
-}).on('close', function() {
-    console.log('数据库断开，重新连接数据库');
-    mongoose.connect(DB_URL, {
-        server: {auto_reconnect: true}
-    });
-});
+db.once('open', () => {
+  console.log('连接数据成功')
+}).on('error', function (error) {
+  console.error('连接数据库错误: ' + error)
+  mongoose.disconnect()
+}).on('close', function () {
+  console.log('数据库断开，重新连接数据库')
+  mongoose.connect(DB_URL, {
+    server: {auto_reconnect: true}
+  })
+})
 
 export default db

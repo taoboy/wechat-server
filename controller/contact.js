@@ -9,26 +9,22 @@ import ContactModel from '../models/contact'
 import ChatroomModel from '../models/chatroom'
 
 class Contact {
-
-  constructor() {
-  }
-
   /**
    * 获取好友通讯录
    * 里面带上 聊天室信息，之后也根据这个 渲染聊天界面
    * ---------------------------------------------
    */
-  async getContacts(req, res) {
+  async getContacts (req, res) {
     // 直接根据session 的值！！
     console.log('根据 session 值获取通讯录：', req.session.userid)
 
-    let resultObj = {};
-    const uid = req.session.userid;
+    let resultObj = {}
+    const uid = req.session.userid
 
     if (!uid) {
       resultObj = {
         code: 2,
-        message: '用户未登录',
+        message: '用户未登录'
       }
       console.log('获取通讯录结果', resultObj)
       baseUtil.appResponse(res, JSON.stringify(resultObj))
@@ -51,7 +47,7 @@ class Contact {
       } catch (err) {
         resultObj = {
           code: 0,
-          message: '获取通讯录列表失败',
+          message: '获取通讯录列表失败'
         }
       } finally {
         console.log('获取通讯录结果', resultObj)
@@ -59,7 +55,7 @@ class Contact {
       }
     }
 
-    /*contactDbUtil.getContacts(req.session.userid).then((doc) => {
+    /* contactDbUtil.getContacts(req.session.userid).then((doc) => {
       resultObj = {
         code: 0,
         message: '获取列表成功',
@@ -73,28 +69,27 @@ class Contact {
     }).then(() => {
       console.log('获取结果', resultObj)
       baseUtil.appResponse(res, JSON.stringify(resultObj))
-    })*/
+    }) */
   }
-
 
   /**
    * 请求添加好友，，这时候应该用到推送了！至少要写在那里！！
    * ---------------------------------------------
    */
-  async addNewFriend(req, res) {
+  async addNewFriend (req, res) {
     let resultObj = {}
     let params = req.body
 
     // 还有 uid,fid,alias,
     params.isshare = params.isshare === 'true'      // 字符串转化为 布尔值
-    params.uid = req.session.userid;
-    params.status = 0;      // 添加好友 标志位！
-    params.addtime = new Date();
+    params.uid = req.session.userid
+    params.status = 0      // 添加好友 标志位！
+    params.addtime = new Date()
 
     console.log('添加好友的信息-00-', params)
 
     try {
-      const doc = await new ContactModel(params).save();
+      const doc = await new ContactModel(params).save()
 
       resultObj = {
         code: 0,
@@ -117,13 +112,13 @@ class Contact {
    * 未必同意吧，如果拒绝怎么办？
    * ---------------------------------------------
    */
-  async handleFriend(req, res) {
+  async handleFriend (req, res) {
     let resultObj = {}
 
     const fid = req.body.fid
     const uid = req.session.userid
 
-    /*switch (req.body.type) {        // 处理类型
+    /* switch (req.body.type) {        // 处理类型
      case 'accept':
 
      break;
@@ -131,7 +126,7 @@ class Contact {
      break;
      default:
      break;
-     }*/
+     } */
 
     let commonParams = {
       status: 1,      // 标记为好友状态！
@@ -141,10 +136,10 @@ class Contact {
 
     try {
       // 这里如果出错了 会怎么样？
-      const chatroomInfo = await new ChatroomModel().save();
-      if (!chatroomInfo) throw new Error('创建聊天室异常');
+      const chatroomInfo = await new ChatroomModel().save()
+      if (!chatroomInfo) throw new Error('创建聊天室异常')
 
-      commonParams.chatid = chatroomInfo._id;
+      commonParams.chatid = chatroomInfo._id
 
       // 更新对方好友的 好友关系
       const updateFriendInfo = await ContactModel.updateOne({
@@ -153,7 +148,7 @@ class Contact {
 
       console.log('更新好友信息：', commonParams)
 
-      if (!updateFriendInfo) throw new Error('同意好友请求异常');
+      if (!updateFriendInfo) throw new Error('同意好友请求异常')
 
       // 创建自身的通讯录 参数
       let selfParams = Object.assign({uid, fid}, commonParams)
@@ -164,26 +159,25 @@ class Contact {
 
       console.log('保存信息-11-', selfInfo)
 
-      if (!selfInfo) throw new Error('新建好友关系异常');
+      if (!selfInfo) throw new Error('新建好友关系异常')
 
       resultObj = {
         code: 0,
         message: '同意好友成功',
         data: selfInfo
       }
-
     } catch (err) {
-      console.log(err.message, err);
+      console.log(err.message, err)
       resultObj = {
         code: 2,
-        message: err.message,
+        message: err.message
       }
     } finally {
       console.log('同意结果', resultObj)
       baseUtil.appResponse(res, JSON.stringify(resultObj))
     }
 
-    /*// let chatroomParams, 不需要，因为聊天室 只有最后一次的消息id!!
+    /* // let chatroomParams, 不需要，因为聊天室 只有最后一次的消息id!!
      chatroomDbUtil.createNewChatroom().then((doc1) => {
      // 聊天室的id
      commonParams.chatid = doc1._id;
@@ -236,22 +230,21 @@ class Contact {
      }).then(() => {
      console.log('同意结果', resultObj)
      baseUtil.appResponse(res, JSON.stringify(resultObj))
-     })*/
+     }) */
   }
-
 
   /**
    * 获取他人申请的添加好友列表，待同意的及已同意的
    * ---------------------------------------------
    * @since 2017-08-13
    */
-  async getNewFriends(req, res) {
+  async getNewFriends (req, res) {
     // 直接根据session 的值！！
-    let resultObj = {};
-    let fid = req.session.userid;
+    let resultObj = {}
+    let fid = req.session.userid
 
     try {
-      const doc = await ContactModel.find({fid}).populate('uid').exec();
+      const doc = await ContactModel.find({fid}).populate('uid').exec()
       resultObj = {
         code: 0,
         message: '获取列表成功',
@@ -260,7 +253,7 @@ class Contact {
     } catch (err) {
       resultObj = {
         code: 0,
-        message: err.message,
+        message: err.message
       }
     } finally {
       console.log('获取结果', resultObj)
@@ -268,11 +261,10 @@ class Contact {
     }
   }
 
-
   /**
    * 更新通讯录信息，包括 好友昵称，清除聊天历史等
    */
-  async updateContact(req, res) {
+  async updateContact (req, res) {
     let resultObj = {}
 
     const uid = req.session.userid
@@ -303,7 +295,6 @@ class Contact {
       baseUtil.appResponse(res, JSON.stringify(resultObj))
     }
   }
-
 }
 
 export default new Contact()
