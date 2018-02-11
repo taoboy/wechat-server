@@ -115,7 +115,7 @@ class Chatroom {
 
   async searchHistory (req, res) {
     let params = {
-      index: 'wechat',    // 获取都可以一样！
+      index: 'wechat', // 获取都可以一样！
       type: 'chatroom',
       query: {
         content: req.params.keyword
@@ -171,7 +171,7 @@ class Chatroom {
 
       // console.log('在线用户--', onlineUsers, Object.keys(onlineUsers))
 
-      if (contactInfo.fid in onlineUsers) {      // 判断是否 在线
+      if (contactInfo.fid in onlineUsers) { // 判断是否 在线
         // 在线就要 推送了，怎么弄？这个可以保存起来～～
         const currentSocket = onlineUsers[uid].socket
 

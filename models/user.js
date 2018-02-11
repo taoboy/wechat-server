@@ -7,15 +7,15 @@ import mongoose from 'mongoose'
 const schema = mongoose.Schema
 
 const USER_SCHEMA = {
-  wechatno: {     // 微信号，不是最开始需要创建的, 6-20，必须以字母开头
+  wechatno: { // 微信号，不是最开始需要创建的, 6-20，必须以字母开头
     type: String,
-        // unique: true,
-    trim: true      // 去空格
+    // unique: true,
+    trim: true // 去空格
   },
-  alias: String,    // 自己设置的昵称
+  alias: String, // 自己设置的昵称
   firstname: String,
   lastname: String,
-  salt: {         // 密码掩码
+  salt: { // 密码掩码
     type: String,
     required: true
   },
@@ -23,7 +23,7 @@ const USER_SCHEMA = {
     type: String,
     required: true
   },
-  mobilephone: {          // 支持使用电话号码登录
+  mobilephone: { // 支持使用电话号码登录
     type: Number,
     unique: true
   },
@@ -36,16 +36,16 @@ const USER_SCHEMA = {
     type: Number,
     default: 0
   },
-  gender: {           // 性别
+  gender: { // 性别
     type: Number,
-    default: 0,      // 0,未知；1,男；2,女
+    default: 0, // 0,未知；1,男；2,女
     enum: [0, 1, 2]
   },
   headimgurl: {
     type: String,
     default: 'static/image/headimg/default.png'
-        // 自定义修饰
-        /* set: function(url) {
+    // 自定义修饰
+    /* set: function(url) {
             if (!url) return ;
             if (0 !== url.indexOf('http://') && 0!== url.indexOf('https://')) {
                 url = 'http://' + url;
@@ -59,7 +59,7 @@ const USER_SCHEMA = {
                 return url;
             }
         } */
-  },         // 头像地址，再说
+  }, // 头像地址，再说
   country: String,
   provice: String,
   city: String,
@@ -67,7 +67,7 @@ const USER_SCHEMA = {
   deleted: {
     type: Boolean,
     default: false
-        // enum : [true, false]    // 枚举值～
+    // enum : [true, false]    // 枚举值～
   },
   createtime: Date,
   updatetime: {
@@ -90,7 +90,7 @@ UserSchema.set('toJSON', {getters: true, virtual: true})
 
 // 唯一查找，其实应该是要合并的！
 UserSchema.static.findOneByField = (field, cb) => {
-    // 这个 json 的键值如何 也设置成为变量？
+  // 这个 json 的键值如何 也设置成为变量？
   this.findOne({wechatno: field, deleted: false}, (err, doc) => {
     cb(err, doc)
   })

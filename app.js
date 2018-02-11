@@ -36,7 +36,7 @@ let port = process.env.PORT || config.dev.port
 // https://github.com/chimurai/http-proxy-middleware
 let proxyTable = config.dev.proxyTable
 
-let app = express()   // Express服务
+let app = express() // Express服务
 
 // cors
 app.all('*', (req, res, next) => {

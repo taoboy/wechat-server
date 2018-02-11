@@ -81,9 +81,9 @@ class Contact {
     let params = req.body
 
     // 还有 uid,fid,alias,
-    params.isshare = params.isshare === 'true'      // 字符串转化为 布尔值
+    params.isshare = params.isshare === 'true' // 字符串转化为 布尔值
     params.uid = req.session.userid
-    params.status = 0      // 添加好友 标志位！
+    params.status = 0 // 添加好友 标志位！
     params.addtime = new Date()
 
     console.log('添加好友的信息-00-', params)
@@ -129,7 +129,7 @@ class Contact {
      } */
 
     let commonParams = {
-      status: 1,      // 标记为好友状态！
+      status: 1, // 标记为好友状态！
       agreetime: new Date()
     }
     console.log('处理好友请求-00-', fid, uid, commonParams)
@@ -268,7 +268,7 @@ class Contact {
     let resultObj = {}
 
     const uid = req.session.userid
-    const fid = req.params.fid      // 更新的用户id，自己或别人的。。
+    const fid = req.params.fid // 更新的用户id，自己或别人的。。
 
     const updateParams = req.body
 

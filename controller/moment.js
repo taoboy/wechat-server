@@ -9,7 +9,7 @@ import CommentModel from '../models/comment'
 import baseUtil from './utils/baseUtil'
 
 class Moment {
-    /**
+  /**
      * 获取所有的朋友圈状态
      * ---------------------------------------------
      * @param req
@@ -23,11 +23,11 @@ class Moment {
     try {
       let moments = await MomentModel.find({ uid })
 
-            // 找到之后再根据这个 momentid 找 评论？有点累啊，但是，又没有其他的办法吧～～
+      // 找到之后再根据这个 momentid 找 评论？有点累啊，但是，又没有其他的办法吧～～
       moments.forEach((moment) => {
         moment.comments = []
 
-                // await 报错！ forEach 已经是个同步的操作！
+        // await 报错！ forEach 已经是个同步的操作！
         const comments = CommentModel.find({ mid: moment._id })
 
         moment.comments.push(comments)
@@ -49,7 +49,7 @@ class Moment {
     }
   }
 
-    /**
+  /**
      * 点赞? 获取应该是 和评论一致的！ 用 get 参数控制！
      * 评论只要保存, 前端相应改变 就好了，
      * 而点赞，需要修改 改状态上面的 upvote 字段！
@@ -63,7 +63,7 @@ class Moment {
 
   }
 
-    /**
+  /**
      * 做评论
      * ---------------------------------------------
      * @param req

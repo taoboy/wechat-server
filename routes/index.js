@@ -19,13 +19,13 @@ import moment from './moment'
 export default app => {
   app.use('/tools', tools)
   app.use('/users', wxuser)
-  app.use('/session', session)        // 用户登录的时候，type 可以使用 刷脸登录！
+  app.use('/session', session) // 用户登录的时候，type 可以使用 刷脸登录！
   app.use('/contacts', contact)
   app.use('/chatrooms', chatroom)
   app.use('/moments', moment)
 }
 
- /**
+/**
 登录实际是对应的资源是 session，因此
     GET /session # 获取会话信息
     POST /session # 创建新的会话（登录）

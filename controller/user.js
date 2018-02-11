@@ -57,10 +57,10 @@ class User {
     // 这样多简洁！！
     const {username, password = '', base64Img = ''} = req.body
 
-    let dbUserinfo      // 数据库用户信息
+    let dbUserinfo // 数据库用户信息
 
     // 需要吗？需要吧，如果用 password 可能会有问题！
-    const loginType = req.query.type || 'password'        // 登录类型
+    const loginType = req.query.type || 'password' // 登录类型
     // const { loginType = 'password' } = req.query       // 这个名称不一样啊～
 
     // 根据用户名查询！如果没有直接抛出
@@ -85,7 +85,7 @@ class User {
       delete dbUserinfo.password
 
       req.session.userid = dbUserinfo._id
-      req.session.userinfo = dbUserinfo           // 缓存用户信息
+      req.session.userinfo = dbUserinfo // 缓存用户信息
 
       resultObj = {
         code: 0,
@@ -296,7 +296,7 @@ class User {
 
     const Storage = multer.diskStorage({
       destination: function (req, file, callback) {
-        callback(null, imgPath)         // 这个路径，还是可以更好一些！
+        callback(null, imgPath) // 这个路径，还是可以更好一些！
       },
       filename: function (req, file, callback) {
         filename = file.fieldname + '_' + Date.now() + '_' + file.originalname

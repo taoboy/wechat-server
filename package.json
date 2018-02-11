@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "babel-node ./app.js",
-    "eslint": ""
+    "eslint": "eslint --ext .js . --fix"
   },
   "repository": {
     "type": "git",

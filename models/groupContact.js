@@ -18,16 +18,16 @@ const GROUPCONTACT_SCHEMA = {
     ref: 'User',
     required: true
   },
-  alias: String,  // 群别名，默认为 nickname
-  rank: {         // 排名，升级群主
+  alias: String, // 群别名，默认为 nickname
+  rank: { // 排名，升级群主
     type: Number,
     required: true
   },
-  muteNotification: {     // 是否屏蔽
+  muteNotification: { // 是否屏蔽
     type: Boolean,
     default: false
   },
-  stickTop: {     // 置顶
+  stickTop: { // 置顶
     type: Boolean,
     default: false
   },
