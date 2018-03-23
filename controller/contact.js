@@ -120,7 +120,6 @@ class Contact {
 
     /* switch (req.body.type) {        // 处理类型
      case 'accept':
-
      break;
      case 'setblack':    // 拉入黑名单，对方是不知道的！
      break;

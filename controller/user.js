@@ -164,6 +164,12 @@ class User {
     }
   }
 
+  /**
+   * 按照微信号、手机号精确搜索
+   * @param req
+   * @param res
+   * @returns {Promise.<void>}
+   */
   async searchUser (req, res) {
     let resultObj = {}
     let userinfo
