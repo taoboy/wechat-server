@@ -17,26 +17,40 @@ npm install
 npm start
 ```
 
-## 目录
+## 目录树
 
-- wechat-server
-    + config            配置文件
-    + controller        业务处理
-    + dbHandle          mongodb 数据库链接
-    + middlewares       中间价 - 鉴权等
-    + models            mongodb 实例
-    + routes            后端路由
-    + test              单元测试
-    + app.js            入口文件
-    + package.json
+- config           — 配置文件
+- controller       — 业务处理
+    + chatroom
+    + contact
+    + moment
+    + user
+- dbHandle         — mongodb 数据库链接
+- middlewares      — 中间件
+    + baiduAip
+    + elasticsearch
+    + log4js
+- models           — mongodb 实例
+    + chatroom
+    + comment
+    + contact
+    + message
+    + moment
+    + user
+- routes           — 后端路由
+- test             — 单元测试
+- app.js           — 入口文件
+- package.json
 
 ## TODO(接口能力)
+
+提供 RESTful API, 支持跨域资源共享。
 
 * [X] GET /session：检测是否登录
 * [X] POST /session: 登录(支持人类登录)
 * [X] DELETE /session: 注销登录
 
-* [X] GET /users： 注册新用户
+* [X] GET /users：注册新用户
 * [X] PATCH /users/:uid: 更新用户信息
 * [X] POST /users/:uid/avatar: 更新用户头像
 * [X] GET /users/:keyword: 按照微信号或手机号精确搜索
