@@ -21,9 +21,9 @@ router.patch('/:id', Contact.updateContact)
 router.get('/new', Contact.getNewFriends)
 
 // 添加好友请求
-router.post('/new/:fid', Contact.addNewFriend)
+router.post('/new', Contact.addNewFriend)
 
 // 处理好友请求
-router.post('/:fid', Contact.handleFriend)
+router.post('/handle', Contact.handleFriend)
 
 export default router
