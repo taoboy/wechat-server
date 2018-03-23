@@ -20,7 +20,7 @@ router.patch('/:id', Contact.updateContact)
 // 不对吧，应该是用 过滤信息的！！
 router.get('/new', Contact.getNewFriends)
 
-// 发出好友请求
+// 添加好友请求
 router.post('/new/:fid', Contact.addNewFriend)
 
 // 处理好友请求

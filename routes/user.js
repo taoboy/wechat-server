@@ -15,10 +15,9 @@ router.post('/', User.register)
 // 更新用户信息
 router.patch('/:id', User.updateUser)
 
-router.post('/:id/headimg', User.uploadImg)
+router.post('/:id/avatar', User.uploadImg)
 
-// 搜索用户, 这个应该带上个参数吧？
-// 获取当前也不用，因为目前不存在根据 id 查的情况
+// 按照微信号、手机号精确搜索
 router.get('/:keyword', User.searchUser)
 
 export default router
