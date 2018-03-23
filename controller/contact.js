@@ -5,6 +5,7 @@
 
 import baseUtil from './utils/baseUtil'
 
+import UserModel from '../models/user'
 import ContactModel from '../models/contact'
 import ChatroomModel from '../models/chatroom'
 
@@ -73,18 +74,30 @@ class Contact {
   }
 
   /**
-   * 请求添加好友，，这时候应该用到推送了！至少要写在那里！！
+   * post 请求添加好友，，这时候应该用到推送了！至少要写在那里！！
+   * 检查fid 是否有效，
    * ---------------------------------------------
+   *
+   * ---------------------------------------------
+   * @update 2018-03-23
    */
   async addNewFriend (req, res) {
     let resultObj = {}
-    let params = req.body
+
+    let {fid, isshare, remark} = req.body
+
+    // 检查对方确实存在,且不是好友关系
+    const existedUser = UserModel.findById({_id: fid})
 
     // 还有 uid,fid,alias,
-    params.isshare = params.isshare === 'true' // 字符串转化为 布尔值
-    params.uid = req.session.userid
-    params.status = 0 // 添加好友 标志位！
-    params.addtime = new Date()
+    let params = {
+      uid: req.session.userid,
+      fid,
+      status: 0,  // 添加好友 标志位！
+      isshare: isshare === 'true', // 字符串转化为 布尔值
+      addtime: new Date(),
+      remark
+    }
 
     console.log('添加好友的信息-00-', params)
 
@@ -102,7 +115,7 @@ class Contact {
         message: err.message
       }
     } finally {
-      console.log('添加结果', resultObj)
+      console.log('添加好友结果-99-', resultObj)
       baseUtil.appResponse(res, JSON.stringify(resultObj))
     }
   }
@@ -110,6 +123,7 @@ class Contact {
   /**
    * 统一好友请求, 必须使用 ES6 !! 不然会疯掉的！
    * 未必同意吧，如果拒绝怎么办？
+   *
    * ---------------------------------------------
    */
   async handleFriend (req, res) {
@@ -175,61 +189,6 @@ class Contact {
       console.log('同意结果', resultObj)
       baseUtil.appResponse(res, JSON.stringify(resultObj))
     }
-
-    /* // let chatroomParams, 不需要，因为聊天室 只有最后一次的消息id!!
-     chatroomDbUtil.createNewChatroom().then((doc1) => {
-     // 聊天室的id
-     commonParams.chatid = doc1._id;
-     // 同时 应该往聊天室里插入一条消息，说，你好～～
-
-     }, (err) => {
-     resultObj = {
-     code: 2,
-     message: '创建聊天室异常'
-     }
-     }).then(() => {
-     // 更新对方 请求的状态！
-     let updateParams = Object.assign({}, commonParams)
-     updateParams.uid = fid
-     updateParams.fid = uid
-
-     console.log('更新对方好友的信息--', updateParams)
-
-     // 这是根据 uid+fid 更新的！ 其实也可以先查 获取id ,然后 再根据id - 多了一步，没有必要！
-     contactDbUtil.updateContact(updateParams).then((doc2) => {
-     console.log('更新好友请求成功')
-     }, (err) => {
-     resultObj = {
-     code: 2,
-     message: '同意好友请求异常'
-     }
-     }).then(() => {
-
-     // 新建自己的好友关系
-     let insertParams = Object.assign({}, commonParams)
-     insertParams.uid = uid
-     insertParams.fid = fid
-     insertParams.createtime = new Date();
-
-     console.log('新建自己的好友信息--', insertParams)
-
-     contactDbUtil.createContact(insertParams).then((doc3) => {
-     resultObj = {
-     code: 0,
-     message: '同意好友成功',
-     data: doc3
-     }
-     }, (err) => {
-     resultObj = {
-     code: 2,
-     message: '新建好友关系异常'
-     }
-     })
-     })
-     }).then(() => {
-     console.log('同意结果', resultObj)
-     baseUtil.appResponse(res, JSON.stringify(resultObj))
-     }) */
   }
 
   /**
@@ -271,7 +230,7 @@ class Contact {
 
     const updateParams = req.body
 
-    console.log('入参：', uid, fid, updateParams)
+    console.log('更新好友信息入参：', uid, fid, updateParams)
 
     try {
       // const oldUserinfo = UserModel.findById({_id}, 'mobilephone')
@@ -281,7 +240,7 @@ class Contact {
 
       resultObj = {
         code: 0,
-        message: '更新成功',
+        message: '更新好友信息成功',
         data: newContact
       }
     } catch (err) {
@@ -290,7 +249,7 @@ class Contact {
         message: err.message
       }
     } finally {
-      console.log('更新结果：', resultObj)
+      console.log('更新好友信息结果：', resultObj)
       baseUtil.appResponse(res, JSON.stringify(resultObj))
     }
   }

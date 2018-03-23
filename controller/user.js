@@ -209,6 +209,12 @@ class User {
     }
   }
 
+  /**
+   * 更新用户信息
+   * @param req
+   * @param res
+   * @returns {Promise.<void>}
+   */
   async updateUser (req, res) {
     let resultObj = {}
 
@@ -292,6 +298,12 @@ class User {
     }
   }
 
+  /**
+   * 上传图片
+   * @param req
+   * @param res
+   * @returns {Promise.<void>}
+   */
   async uploadImg (req, res) {
     let resultObj = {}
 
