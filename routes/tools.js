@@ -16,9 +16,20 @@ const router = express.Router()
 router.get('/qrcode', (req, res) => {
   let resultObj = {}
 
-  const text = req.query.text
+  const { handle, uid } = req.query
+
+  const handleArr = ['addFriend', 'pay']
 
   try {
+
+    if (typeof handle === 'undefined' || typeof uid === 'undefined'
+      || uid !== req.session.userid || !handleArr.includes(handle)
+    ) {
+      throw new Error('生成二维码参数错误');
+    }
+
+    const text = `handle=${handle}&uid=${uid}`
+
     // 保存下来，然后再转化成 base64 ？?
 
     // let img = qr.image(text, {size: 10})
@@ -38,7 +49,7 @@ router.get('/qrcode', (req, res) => {
   } catch (err) {
     resultObj = {
       code: 2,
-      message: '生成二维码失败！'
+      message: err.message
     }
   } finally {
     console.log('结果', resultObj)

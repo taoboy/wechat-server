@@ -1,7 +1,7 @@
 {
   "name": "wechat-server",
   "version": "0.0.1",
-  "description": "基于 exprees+mongodb 的仿微信项目后端服务",
+  "description": "基于 vue+express 的仿微信项目——BE工程",
   "author": "sgAlfred",
   "private": true,
   "scripts": {

@@ -57,9 +57,10 @@ npm start
 
 * [X] GET /contacts: 获取通讯录列表
 * [X] GET /contacts/:fid: 获取好友信息详情(内部调用 /users/:id, 并数据脱敏)
-* [X] DELETE /contacts/:fid: 删除好友
+* [ ] DELETE /contacts/:fid: 删除好友
 * [X] GET /contacts/new: 添加我为好友的用户列表
 * [X] POST /contacts/new: 发起好友请求
+* [X] POST /contacts/handle: 处理好友请求(暂只支持同意)
 
 * [X] GET /chatrooms: 获取聊天列表
 * [X] GET /chatrooms/:chatid?offset=: 获取某聊天的信息，包括聊天记录(懒加载)

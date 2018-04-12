@@ -18,7 +18,7 @@ class Moment {
      */
   async getAllMoments (req, res) {
     let resultObj = {}
-    const uid = req.session.uid
+    const uid = req.session.userid
 
     try {
       let moments = await MomentModel.find({ uid })
@@ -74,7 +74,7 @@ class Moment {
     let resultObj = {}
 
     let commentParam = req.body
-    commentParam.uid = req.session.uid
+    commentParam.uid = req.session.userid
 
     try {
       const comment = new CommentModel(commentParam).save()
